@@ -1,6 +1,7 @@
 // src/pages/LoginPage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext'; // 1. Importe o hook de autenticação
 
 // Componentes
 import AuthLayout from '../components/auth/AuthLayout';
@@ -13,30 +14,35 @@ import desktopImg from '../assets/img/cadastro-login/img-1.png';
 import tabletImg from '../assets/img/cadastro-login/IMG_1 - Tablet.png';
 import mobileImg from '../assets/img/cadastro-login/IMG_1 - Mobile.png';
 
-// Lógica (será movida para um hook/context depois)
-import { loginUsuario } from '../services/api';
-
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  
   const navigate = useNavigate();
+  const { login } = useAuth(); // 2. Obtenha a função de login do contexto
 
   const imageSet = { desktop: desktopImg, tablet: tabletImg, mobile: mobileImg };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validação simples de campos
+    if (!email || !password) {
+        setError('Por favor, preencha todos os campos.');
+        return;
+    }
+
     setLoading(true);
     setError('');
 
     try {
-      const userData = await loginUsuario({ email, password });
-      // Lógica de salvar token (será movida para o AuthContext)
-      localStorage.setItem('authToken', userData.token);
-      navigate('/feed');
+      // 3. Use a função de login do contexto em vez da API diretamente
+      await login(email, password);
+      navigate('/feed'); // Redireciona para o feed após o sucesso
     } catch (err) {
-      // A lógica de mensagens de erro de login.js
+      // O erro lançado pelo AuthContext ou API será capturado aqui
       setError(err.message || 'E-mail ou senha incorretos.');
     } finally {
       setLoading(false);
