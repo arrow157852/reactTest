@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import GeneralLayout from '../components/layouts/GeneralLayout';
+import { useNavigate } from 'react-router-dom';
 import ImageUploader from '../components/publish/ImageUploader';
 import Input from '../components/common/input/Input';
 import Button from '../components/common/button/Button';
-import { publicarProjeto } from '../services/api'; // Importar a função da API
-import { useNavigate } from 'react-router-dom';
+import { publicarProjeto } from '../services/api';
+
+
+import styles from './Publicar.module.css';
 
 const PublicarPage = () => {
   const [nomeProjeto, setNomeProjeto] = useState('');
@@ -21,7 +23,6 @@ const PublicarPage = () => {
       setError('Todos os campos são obrigatórios, incluindo a imagem.');
       return;
     }
-
     setLoading(true);
     setError('');
     setSuccess('');
@@ -30,12 +31,11 @@ const PublicarPage = () => {
     formData.append('nome', nomeProjeto);
     formData.append('descricao', descricao);
     formData.append('imagem', selectedImage);
-    // Se tiver tags: formData.append('tags', JSON.stringify(tags));
 
     try {
       await publicarProjeto(formData);
       setSuccess('Projeto publicado com sucesso!');
-      setTimeout(() => navigate('/feed'), 2000); // Redireciona após 2s
+      setTimeout(() => navigate('/feed'), 2000); 
     } catch (err) {
       setError(err.message || 'Erro ao publicar o projeto.');
     } finally {
@@ -47,15 +47,14 @@ const PublicarPage = () => {
     setNomeProjeto('');
     setDescricao('');
     setSelectedImage(null);
-    // Resetar o componente ImageUploader também pode ser necessário
   };
 
   return (
-    // Removido o GeneralLayout daqui, pois ele virá do ProtectedLayout
-    <div className="publish-container">
+    
+    <div className={styles.publishContainer}>
       <ImageUploader onImageSelect={setSelectedImage} />
-      <div className="container-descricao">
-        <h2>Novo projeto</h2>
+      <div className={styles.containerDescricao}>
+        <h2 className={styles.title}>Novo projeto</h2>
         <form onSubmit={handlePublicar}>
           <Input
             label="Nome do projeto"
@@ -64,22 +63,23 @@ const PublicarPage = () => {
             onChange={(e) => setNomeProjeto(e.target.value)}
             required
           />
-          <div className="input-group">
+          <div className={styles.inputGroup}>
             <label htmlFor="descricao">Descrição</label>
-            <textarea 
-              id="descricao" 
-              value={descricao} 
+            <textarea
+              id="descricao"
+              value={descricao}
               onChange={(e) => setDescricao(e.target.value)}
-              required 
+              required
+              className={styles.textarea}
             />
           </div>
 
-          {error && <output className="mensagem-erro">{error}</output>}
-          {success && <output className="mensagem-sucesso">{success}</output>}
+          {error && <output className={styles.mensagemErro}>{error}</output>}
+          {success && <output className={styles.mensagemSucesso}>{success}</output>}
 
-          <div className="container-botoes">
-            <Button type="button" className="botao-descartar" onClick={handleDescartar}>Descartar</Button>
-            <Button type="submit" className="botao-publicar" disabled={loading}>
+          <div className={styles.containerBotoes}>
+            <Button type="button" className={styles.botaoDescartar} onClick={handleDescartar}>Descartar</Button>
+            <Button type="submit" className={styles.botaoPublicar} disabled={loading}>
               {loading ? 'Publicando...' : 'Publicar'}
             </Button>
           </div>

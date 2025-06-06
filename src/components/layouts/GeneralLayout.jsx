@@ -1,7 +1,5 @@
-// src/components/layouts/GeneralLayout.js
-import React from 'react';
 import Aside from '../common/aside/Aside';
-import './GeneralLayout.css';
+
 
 const GeneralLayout = ({ children }) => {
   return (

@@ -1,7 +1,6 @@
-// src/pages/LoginPage.js
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext'; // 1. Importe o hook de autenticação
+import { useAuth } from '../contexts/AuthContext';
 
 // Componentes
 import AuthLayout from '../components/auth/AuthLayout';
@@ -9,84 +8,100 @@ import AuthRedirectLink from '../components/auth/AuthRedirectLink';
 import Input from '../components/common/input/Input';
 import Button from '../components/common/button/Button';
 
-// Imagens para o layout
+// Imagens
 import desktopImg from '../assets/img/cadastro-login/img-1.png';
 import tabletImg from '../assets/img/cadastro-login/IMG_1 - Tablet.png';
 import mobileImg from '../assets/img/cadastro-login/IMG_1 - Mobile.png';
 
-const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  
-  const navigate = useNavigate();
-  const { login } = useAuth(); // 2. Obtenha a função de login do contexto
+// HOC para injetar 'navigate' e 'auth'
+function withRouterAndAuth(Component) {
+  return function WrappedComponent(props) {
+    const navigate = useNavigate();
+    const auth = useAuth();
+    return <Component {...props} navigate={navigate} auth={auth} />;
+  };
+}
 
-  const imageSet = { desktop: desktopImg, tablet: tabletImg, mobile: mobileImg };
+class LoginPage extends React.Component {
+    constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      error: '',
+      loading: false,
+    };
+    this.imageSet = { desktop: desktopImg, tablet: tabletImg, mobile: mobileImg };
+  }
 
-  const handleSubmit = async (e) => {
+  handleChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Validação simples de campos
+    const { email, password } = this.state;
+    const { navigate, auth } = this.props;
+
     if (!email || !password) {
-        setError('Por favor, preencha todos os campos.');
-        return;
+      this.setState({ error: 'Por favor, preencha todos os campos.' });
+      return;
     }
 
-    setLoading(true);
-    setError('');
+    this.setState({ loading: true, error: '' });
 
     try {
-      // 3. Use a função de login do contexto em vez da API diretamente
-      await login(email, password);
-      navigate('/feed'); // Redireciona para o feed após o sucesso
+      await auth.login(email, password);
+      navigate('/feed');
     } catch (err) {
-      // O erro lançado pelo AuthContext ou API será capturado aqui
-      setError(err.message || 'E-mail ou senha incorretos.');
+      this.setState({ error: err.message || 'E-mail ou senha incorretos.' });
     } finally {
-      setLoading(false);
+      this.setState({ loading: false });
     }
   };
 
-  return (
-    <AuthLayout imageSet={imageSet}>
-      <h1>Login</h1>
-      <h2>Boas vindas! Faça seu login.</h2>
-      <form onSubmit={handleSubmit}>
-        <Input
-          label="Email"
-          id="email-login"
-          type="email"
-          name="email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Input
-          label="Senha"
-          id="senha-login"
-          type="password"
-          name="senha"
-          required
-          placeholder="Digite sua senha"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {error && <output className="mensagem-erro">{error}</output>}
-        <div className="container-botao">
-          <Button type="submit" disabled={loading}>
-            {loading ? 'Carregando...' : 'Login'}
-          </Button>
-        </div>
-      </form>
-      <AuthRedirectLink
-        text="Ainda não tem conta?"
-        linkText="Crie seu Cadastro!"
-        to="/cadastro"
-      />
-    </AuthLayout>
-  );
-};
+  render() {
+    const { email, password, error, loading } = this.state;
 
-export default LoginPage;
+    return (
+      <AuthLayout imageSet={this.imageSet}>
+        <h1>Login</h1>
+        <h2>Boas vindas! Faça seu login.</h2>
+        <form onSubmit={this.handleSubmit}>
+          <Input
+            label="Email"
+            id="email-login"
+            type="email"
+            name="email"
+            required
+            value={email}
+            onChange={this.handleChange}
+          />
+          <Input
+            label="Senha"
+            id="senha-login"
+            type="password"
+            name="senha"
+            required
+            placeholder="Digite sua senha"
+            value={password}
+            onChange={this.handleChange}
+          />
+          {error && <output className="mensagem-erro">{error}</output>}
+          <div className="container-botao">
+            <Button type="submit" disabled={loading}>
+              {loading ? 'Carregando...' : 'Login'}
+            </Button>
+          </div>
+        </form>
+        <AuthRedirectLink
+          text="Ainda não tem conta?"
+          linkText="Crie seu Cadastro!"
+          to="/cadastro"
+        />
+      </AuthLayout>
+    );
+  }
+}
+
+export default withRouterAndAuth(LoginPage);

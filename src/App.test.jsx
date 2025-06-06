@@ -2,7 +2,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import LoginPage from './pages/LoginPage';
-import PublicarPage from './pages/PublicarPage'; // Página para simular o destino pós-login
+import PublicarPage from './pages/publicar/PublicarPage'; // Página para simular o destino pós-login
 
 // Mock do hook useAuth para controlar o retorno nos testes
 jest.mock('./contexts/AuthContext', () => ({

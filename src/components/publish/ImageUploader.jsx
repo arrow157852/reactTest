@@ -1,7 +1,7 @@
-// src/components/publish/ImageUploader.js
-import React, { useState, useRef } from 'react';
+
+import  { useState, useRef } from 'react';
 import defaultImage from '../../assets/img/publicar/imagem1.png';
-import Button from '../common/button/Button'; // <-- IMPORTAÇÃO ADICIONADA
+import Button from '../common/button/Button'; 
 
 const ImageUploader = ({ onImageSelect }) => {
   const [imagePreview, setImagePreview] = useState(defaultImage);
@@ -15,7 +15,7 @@ const ImageUploader = ({ onImageSelect }) => {
       reader.onloadend = () => {
         setImagePreview(reader.result);
         setImageName(file.name);
-        onImageSelect(file); // Envia o arquivo para o componente pai
+        onImageSelect(file); 
       };
       reader.readAsDataURL(file);
     }

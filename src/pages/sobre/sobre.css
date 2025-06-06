@@ -1,0 +1,104 @@
+/*
+  Este arquivo foi renomeado de 'sobre.css' e refatorado.
+  Seletores de tag globais foram substituídos por classes.
+*/
+.main {
+  display: flex;
+  flex-direction: column;
+  margin-left: 250px;
+  margin-right: 100px;
+  padding: 20px;
+  box-sizing: border-box;
+  color: var(--cor-cinza-claro);
+  font-family: var(--fonte-principal);
+}
+
+.containerImg1 {
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+  border-radius: 8px;
+  margin: auto;
+}
+
+.img1 {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 40%;
+}
+
+.title {
+  text-align: center;
+  font-size: 35px;
+  margin: 30px 0 5px 0;
+  color: var(--cor-verde-destaque);
+  font-weight: 400;
+}
+
+.subtitulo {
+  font-weight: 600;
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.paragraph {
+  font-size: 20px;
+  margin: 10px 0 20px 10px;
+}
+
+.sectionTitle {
+  font-size: 25px;
+  margin: 10px 0 30px 10px;
+}
+
+.containerResumo {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.containerMissaoImg {
+  display: flex;
+  gap: 60px;
+  align-items: center;
+  margin: 30px 0;
+}
+
+.containerMissao {
+  flex: 0.7;
+}
+
+.containerImg2 {
+  flex: 0.4;
+}
+.img2 {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+.containerFraseFinal {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-top: 40px;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.containerFraseFinal img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.containerFraseFinal p {
+  margin: 0;
+  flex: 1;
+  font-size: 28px;
+  opacity: 0.5;
+  font-weight: 500;
+}
+

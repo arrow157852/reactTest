@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import ProtectedLayout from './ProtectedLayout'; // Importe o novo layout
 import LoginPage from '../pages/LoginPage';
 import CadastroPage from '../pages/CadastroPage';
-import PublicarPage from '../pages/PublicarPage';
+import PublicarPage from '../pages/publicar/PublicarPage';
 // Importe outras páginas que serão protegidas, ex:
 // import FeedPage from '../pages/FeedPage'; 
 // import PerfilPage from '../pages/PerfilPage';
