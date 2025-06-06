@@ -5,9 +5,9 @@ import styles from './Aside.module.css';
 
 // CORREÇÃO: Tentando um caminho diferente.
 // Este caminho assume que a pasta 'assets' está na RAIZ do seu projeto, e não dentro de 'src'.
-import iconPublicar from '../../../../assets/img/aside/Frame 2.png';
-import iconFeed from '../../../../assets/img/aside/Frame 3.png';
-import iconPerfil from '../../../../assets/img/aside/Frame 4.png';
+import iconPublicar from '../../../assets/img/aside/desktop/Frame 2.png';
+import iconFeed from '../../../assets/img/aside/desktop/Frame 3.png';
+import iconPerfil from '../../../assets/img/aside/desktop/Frame 4.png';
 // import logo from '../../../../assets/img/publicacao/logo.svg';
 
 const Aside = () => {
