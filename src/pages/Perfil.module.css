@@ -1,4 +1,4 @@
-@import url(./global.css); /* Certifique-se que este caminho está correto para suas variáveis globais */
+/* Certifique-se que este caminho está correto para suas variáveis globais */
 
 :root {
   --primary-color: #007bff; /* Azul para botões e links */

@@ -6,8 +6,8 @@ import { useAuth } from '../contexts/AuthContext'; // 1. Importe o hook de auten
 // Componentes
 import AuthLayout from '../components/auth/AuthLayout';
 import AuthRedirectLink from '../components/auth/AuthRedirectLink';
-import Input from '../components/common/Input';
-import Button from '../components/common/Button';
+import Input from '../components/common/input/Input';
+import Button from '../components/common/button/Button';
 
 // Imagens para o layout
 import desktopImg from '../assets/img/cadastro-login/img-1.png';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import Aside from '../components/common/Aside';
+import Aside from '../components/common/aside/Aside';
 import '../components/layouts/GeneralLayout.css'; // Supondo que o estilo do layout esteja aqui
 
 const ProtectedLayout = () => {

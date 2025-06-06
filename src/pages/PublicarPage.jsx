@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import GeneralLayout from '../components/layouts/GeneralLayout';
 import ImageUploader from '../components/publish/ImageUploader';
-import Input from '../components/common/Input';
-import Button from '../components/common/Button';
+import Input from '../components/common/input/Input';
+import Button from '../components/common/button/Button';
 import { publicarProjeto } from '../services/api'; // Importar a função da API
 import { useNavigate } from 'react-router-dom';
 

@@ -1,5 +1,3 @@
-// src/components/auth/AuthRedirectLink.js
-import React from 'react';
 import { Link } from 'react-router-dom';
 import './AuthRedirectLink.css';
 

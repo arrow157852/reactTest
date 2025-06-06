@@ -1,7 +1,4 @@
-// src/components/auth/AuthLayout.js
-import React from 'react';
-
-import './AuthLayout.css'; // Copie e adapte o CSS de login.css e cadastro.css
+import './AuthLayout.css'; 
 
 const AuthLayout = ({ children, imageSet }) => {
   // imageSet seria um objeto com as imagens { desktop, tablet, mobile }

@@ -1,6 +1,7 @@
 // src/components/publish/ImageUploader.js
 import React, { useState, useRef } from 'react';
 import defaultImage from '../../assets/img/publicar/imagem1.png';
+import Button from '../common/button/Button'; // <-- IMPORTAÇÃO ADICIONADA
 
 const ImageUploader = ({ onImageSelect }) => {
   const [imagePreview, setImagePreview] = useState(defaultImage);

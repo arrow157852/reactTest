@@ -1,4 +1,4 @@
-// src/contexts/AuthContext.js
+
 import React, { createContext, useState, useContext } from 'react';
 import * as api from '../services/api';
 
@@ -10,11 +10,18 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     const data = await api.loginUsuario({ email, password });
+
+    
+    const user = {
+      id: data.id,
+      name: data.name,
+      email: data.email,
+    };
+
     setToken(data.token);
-    setUser(data.user); // Supondo que a API retorne o usuário
+    setUser(user); 
     localStorage.setItem('authToken', data.token);
   };
-  
   const logout = () => {
     setUser(null);
     setToken(null);
@@ -26,7 +33,7 @@ export const AuthProvider = ({ children }) => {
   return <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>;
 };
 
-// Hook customizado para facilitar o uso
+
 export const useAuth = () => {
   return useContext(AuthContext);
 };
