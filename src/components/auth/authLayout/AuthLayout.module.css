@@ -1,9 +1,11 @@
-@import url(../../styles/global.css);
+/* src/components/auth/authLayout/AuthLayout.module.css */
+/* As importações de variáveis globais não funcionam em CSS Modules,
+   então os valores de --cor-fundo, etc., devem vir de um arquivo importado no index.js, como o global.css */
 
-/* --- Estilos Gerais do Layout de Autenticação --- */
-.auth-main {
-  background-image: url(../../assets/img/cadastro-login/Símbolo.png),
-    url(../../assets/img/cadastro-login/Símbolo.png);
+.authMain {
+  /* Caminhos corrigidos assumindo que a pasta 'assets' está em 'src' */
+  background-image: url('../../../assets/img/cadastro-login/Símbolo.png'),
+    url('../../../assets/img/cadastro-login/Símbolo.png');
   background-repeat: no-repeat, no-repeat;
   background-position: left -60px, right 330px;
   background-attachment: fixed;
@@ -17,7 +19,7 @@
   font-family: var(--fonte-principal);
 }
 
-.auth-main .content-container {
+.contentContainer {
   display: flex;
   width: 100%;
   max-width: 650px;
@@ -28,141 +30,64 @@
   align-items: center;
 }
 
-.auth-main .img-main {
+.imgMain {
   width: 240px;
   height: 434px;
   object-fit: cover;
 }
 
-.auth-main .container-form {
+.containerForm {
   flex: 1;
   display: flex;
   flex-direction: column;
   padding: 0 22px;
 }
 
-/* --- Estilos do Formulário (Login e Cadastro) --- */
-
-.auth-main h1 {
+.containerForm h1 {
   margin-bottom: 20px;
   color: var(--cor-texto);
   font-size: var(--tamanho-titulo);
   font-weight: var(--peso-titulo);
 }
 
-.auth-main h2 {
+.containerForm h2 {
   font-size: var(--tamanho-subtitulo);
   font-weight: var(--peso-subtitulo);
   margin-bottom: 25px;
   color: var(--cor-texto);
 }
 
-.auth-main form {
+.containerForm form {
   width: 100%;
 }
 
-/* Grupo de Input (Label + Input) - Usado no componente Input.js */
-.input-group {
-  margin-bottom: 15px;
-}
-
-.input-group label {
-  font-size: 12.5px;
-  font-weight: var(--peso-subtitulo);
-  display: block;
-  margin-bottom: 4px;
-  color: var(--cor-texto);
-}
-
-.input-group input {
-  width: 100%;
-  padding: 8px 16px;
-  background-color: var(--cor-input);
-  border: none;
-  border-radius: 4px;
-  line-height: 22.5px;
-  height: 40px;
-  color: var(--cor-fundo);
-  box-sizing: border-box;
-}
-
-.input-group input:focus {
-  outline: none;
-  border: var(--cor-verde-destaque) 1px solid;
-}
-
-/* Botão Principal */
-.container-botao {
-  margin-top: 20px;
-}
-
-/* Mensagem de Erro */
-.mensagem-erro {
-  display: block;
-  padding: 8px;
-  margin: 10px 0;
-  border-radius: 4px;
-  font-size: 14px;
-  font-weight: var(--peso-subtitulo);
-  text-align: center;
-  width: 100%;
-  box-sizing: border-box;
-  background-color: var(--cor-cinza-escuro);
-  color: #f93827;
-  border: 1px solid #f93827;
-}
-
-/* --- Link para Redirecionamento (Login/Cadastro) --- */
-.container-link {
-  margin-top: 40px;
-  border-top: 2px solid var(--cor-texto);
-  padding-top: 20px;
-  text-align: center;
-}
-
-.container-link p {
-  color: var(--cor-texto);
-  font-size: 12px;
-  margin-bottom: 8px;
-}
-
-.container-link .link {
-  color: var(--cor-verde-destaque);
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 14px;
-}
-
-/* --- Imagens Responsivas --- */
-.img-desktop,
-.img-tablet,
-.img-mobile {
+.imgDesktop,
+.imgTablet,
+.imgMobile {
   display: none;
 }
 
-.img-desktop {
+.imgDesktop {
   display: block;
 }
 
-/* --- Media Queries --- */
-
 @media (max-width: 1023px) {
-  .auth-main {
+  .authMain {
     background-position: left -30px, right 390px;
     background-size: 220px 280px, 220px 280px;
   }
 
-  .auth-main .content-container {
+  .contentContainer {
     flex-direction: column;
     max-width: 500px;
     padding: 30px;
   }
 
-  .img-desktop {
+  .imgDesktop {
     display: none;
   }
 
-  .img-tablet {
+  .imgTablet {
     display: block;
     width: 100%;
     max-width: 400px;
@@ -171,7 +96,7 @@
     object-fit: cover;
   }
 
-  .auth-main .container-form {
+  .containerForm {
     width: 100%;
     max-width: 400px;
     padding: 0;
@@ -179,21 +104,21 @@
 }
 
 @media (max-width: 767px) {
-  .auth-main {
-    background-image: none; /* Remove background images on small screens */
+  .authMain {
+    background-image: none;
     align-items: flex-start;
     padding-top: 30px;
   }
 
-  .auth-main .content-container {
+  .contentContainer {
     padding: 20px 15px;
   }
 
-  .img-tablet {
+  .imgTablet {
     display: none;
   }
 
-  .img-mobile {
+  .imgMobile {
     display: block;
     width: 100%;
     max-width: 280px;

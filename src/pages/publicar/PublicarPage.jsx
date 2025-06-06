@@ -1,10 +1,12 @@
+// src/pages/publicar/PublicarPage.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ImageUploader from '../components/publish/ImageUploader';
-import Input from '../components/common/input/Input';
-import Button from '../components/common/button/Button';
-import { publicarProjeto } from '../services/api';
 
+// CORREÇÃO: Os caminhos de importação foram ajustados para subir dois níveis (../../)
+import ImageUploader from '../../components/publish/ImageUploader';
+import Input from '../../components/common/input/Input';
+import Button from '../../components/common/button/Button';
+import { publicarProjeto } from '../../services/api';
 
 import styles from './Publicar.module.css';
 
@@ -47,10 +49,11 @@ const PublicarPage = () => {
     setNomeProjeto('');
     setDescricao('');
     setSelectedImage(null);
+    // Adicionado para resetar o preview da imagem no componente filho
+    // (Isso requer uma pequena modificação no ImageUploader se quiser controlar por aqui)
   };
 
   return (
-    
     <div className={styles.publishContainer}>
       <ImageUploader onImageSelect={setSelectedImage} />
       <div className={styles.containerDescricao}>

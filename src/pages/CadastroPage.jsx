@@ -1,13 +1,14 @@
+// src/pages/CadastroPage.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Componentes
-import AuthLayout from '../components/auth/AuthLayout';
-import AuthRedirectLink from '../components/auth/AuthRedirectLink';
+import AuthLayout from '../components/auth/authLayout/AuthLayout';
+import AuthRedirectLink from '../components/auth/authRedirectLink/AuthRedirectLink';
 import Input from '../components/common/input/Input';
 import Button from '../components/common/button/Button';
 
-// Imagens
+// Imagens (Assumindo que você criará uma pasta 'assets' dentro de 'src')
 import desktopImg from '../assets/img/cadastro-login/img-2.png';
 import tabletImg from '../assets/img/cadastro-login/IMG2_Tablet.png';
 import mobileImg from '../assets/img/cadastro-login/IMG2_Mobile.png';
@@ -24,7 +25,7 @@ class CadastroPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nome: '',
+      username: '',
       email: '',
       password: '',
       error: '',
@@ -50,8 +51,8 @@ class CadastroPage extends React.Component {
     this.setState({ loading: true, error: '' });
 
     try {
-      const { nome, email, password } = this.state;
-      await cadastrarUsuario({ username: nome, email, password });
+      const { username, email, password } = this.state;
+      await cadastrarUsuario({ username, email, password });
       navigate('/login');
     } catch (err) {
       this.setState({ error: err.message || 'Erro ao realizar o cadastro. Tente novamente.' });
@@ -61,7 +62,7 @@ class CadastroPage extends React.Component {
   };
 
   render() {
-    const { nome, email, password, error, loading } = this.state;
+    const { username, email, password, error, loading } = this.state;
 
     return (
       <AuthLayout imageSet={this.imageSet}>
@@ -70,11 +71,11 @@ class CadastroPage extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <Input
             label="Nome"
-            id="nome"
+            id="username"
             type="text"
-            name="nome"
+            name="username"
             required
-            value={nome}
+            value={username}
             onChange={this.handleChange}
           />
           <Input
@@ -88,9 +89,9 @@ class CadastroPage extends React.Component {
           />
           <Input
             label="Senha"
-            id="senha"
+            id="password"
             type="password"
-            name="senha"
+            name="password"
             required
             placeholder="Digite sua senha (8-20 caracteres)"
             value={password}

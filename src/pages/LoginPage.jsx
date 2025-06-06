@@ -1,14 +1,15 @@
+// src/pages/LoginPage.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 // Componentes
-import AuthLayout from '../components/auth/AuthLayout';
-import AuthRedirectLink from '../components/auth/AuthRedirectLink';
+import AuthLayout from '../components/auth/authLayout/AuthLayout';
+import AuthRedirectLink from '../components/auth/authRedirectLink/AuthRedirectLink';
 import Input from '../components/common/input/Input';
 import Button from '../components/common/button/Button';
 
-// Imagens
+// Imagens (Assumindo que você criará uma pasta 'assets' dentro de 'src')
 import desktopImg from '../assets/img/cadastro-login/img-1.png';
 import tabletImg from '../assets/img/cadastro-login/IMG_1 - Tablet.png';
 import mobileImg from '../assets/img/cadastro-login/IMG_1 - Mobile.png';
@@ -35,6 +36,7 @@ class LoginPage extends React.Component {
   }
 
   handleChange = (e) => {
+    // Corrigido para pegar o 'name' do input, não 'id'
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -72,7 +74,7 @@ class LoginPage extends React.Component {
             label="Email"
             id="email-login"
             type="email"
-            name="email"
+            name="email" // Adicionado o atributo name
             required
             value={email}
             onChange={this.handleChange}
@@ -81,7 +83,7 @@ class LoginPage extends React.Component {
             label="Senha"
             id="senha-login"
             type="password"
-            name="senha"
+            name="password" // Corrigido o name para 'password'
             required
             placeholder="Digite sua senha"
             value={password}

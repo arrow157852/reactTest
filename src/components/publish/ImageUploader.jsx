@@ -1,6 +1,7 @@
-
-import  { useState, useRef } from 'react';
-import defaultImage from '../../assets/img/publicar/imagem1.png';
+// src/components/publish/ImageUploader.jsx
+import React, { useState, useRef } from 'react';
+// CORREÇÃO: O caminho foi atualizado para usar a pasta "publicacao"
+import defaultImage from '../../assets/img/publicacao/imagem1.png';
 import Button from '../common/button/Button'; 
 
 const ImageUploader = ({ onImageSelect }) => {
@@ -15,7 +16,9 @@ const ImageUploader = ({ onImageSelect }) => {
       reader.onloadend = () => {
         setImagePreview(reader.result);
         setImageName(file.name);
-        onImageSelect(file); 
+        if (onImageSelect) {
+            onImageSelect(file); 
+        }
       };
       reader.readAsDataURL(file);
     }
