@@ -16,35 +16,22 @@ export const setAuthToken = (token) => {
   }
 };
 
-// --- CORREÇÃO ADICIONADA: Interceptor de Resposta ---
-// Este trecho intercepta TODAS as respostas da API.
+// Interceptor de Resposta para lidar com token expirado
 apiClient.interceptors.response.use(
-  // Função para respostas de sucesso (nenhuma alteração necessária)
   (response) => response,
-
-  // Função para lidar com erros
   (error) => {
-    // Verifica se o erro é de autenticação (token expirado/inválido)
     if (error.response && error.response.status === 401) {
-      // Dispara um evento global para que o AuthContext possa reagir e fazer logout.
-      // Isso evita dependências circulares entre este arquivo e o AuthContext.
       window.dispatchEvent(new Event('token-expired'));
     }
-
-    // Rejeita a promise para que o erro continue seu fluxo e possa ser tratado
-    // no componente que fez a chamada, se necessário.
     return Promise.reject(error);
   }
 );
-// --- FIM DA CORREÇÃO ---
-
 
 export const loginUsuario = async (credentials) => {
   try {
     const response = await apiClient.post('/usuarios/login', credentials);
     return response.data;
   } catch (error) {
-    // O erro será propagado para a página de login, que exibirá a mensagem.
     throw error.response?.data || new Error('Erro de conexão com o servidor.');
   }
 };
@@ -58,9 +45,19 @@ export const cadastrarUsuario = async (userData) => {
   }
 };
 
+// NOVA FUNÇÃO: Adicionada para validar o token buscando o perfil do usuário
+export const getPerfilUsuario = async () => {
+  try {
+    // Use o endpoint correto da sua API que retorna os dados do usuário logado
+    const response = await apiClient.get('/usuarios/perfil'); 
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || new Error('Sessão inválida ou expirada.');
+  }
+}
+
 export const publicarProjeto = async (formData) => {
   try {
-    // A API para upload de arquivos geralmente espera 'multipart/form-data'
     const response = await apiClient.post('/projetos', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -68,7 +65,6 @@ export const publicarProjeto = async (formData) => {
     });
     return response.data;
   } catch (error) {
-    // Se o token estiver expirado aqui, o interceptor acima vai lidar com o logout.
     throw error.response?.data || new Error('Erro ao publicar projeto.');
   }
 };
